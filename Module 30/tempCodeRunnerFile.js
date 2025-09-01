@@ -1,1 +1,1 @@
-console.log(player1);
+this.age = age
