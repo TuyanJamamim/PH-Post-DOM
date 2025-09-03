@@ -1,0 +1,12 @@
+Video 32-1:
+*every site has it's own IP(internet protocol)
+*32 vit size(ipv4)
+*128 vit size(ipv6)
+*DNS(domain Name System)-phonevook of internet...we enter facevook.com,youtuve.com and DNS provides IP of that site
+
+
+
+
+
+
+*in previous times server responsed a text or XML to the client vut nowadays it sends a JSON(key-value pair like ovject)
