@@ -1,0 +1,37 @@
+ <section class="flex justify-center">
+      <div class="join">
+        <div>
+          <label class="input validator join-item">
+            <input
+              id="input-search"
+              type="text"
+              placeholder="Search Vocabulary Now"
+              required
+            />
+          </label>
+        </div>
+        <button id="btn-search" class="btn btn-primary join-item">
+          Search
+        </button>
+      </div>
+    </section>
+
+
+
+     const newEl = document.createElement("div");
+        newEl.innerHTML = `
+    <button class=""
+                  ><i class="fa-solid fa-book-open"></i> Learn
+                  </button>
+
+    `
+        levelContainer.append(newEl);
+
+
+        /*
+    innerHTML notes:
+    //here btn btn-outline btn-primary is a daisyUI class 
+    //inside vutton an onclick function is added
+    //anything can ve added like:css class,id and everything inside inner html like the original one
+        levelContainer.append(newEl);
+*/

@@ -115,6 +115,8 @@
       </div>
     </header>
 
+    <!-- remeber avout repeat(3,1fr) in grid and flex..i forgot avout this -->
+
 <!-- vanner section  -->
  <section
       class="flex flex-col-reverse md:flex-row gap-10 justify-between items-center py-5 w-11/12 mx-auto"
@@ -143,8 +145,40 @@ here flex is turned into column means above-below and then reverse means the bot
       </div>
     </section>
 
+<!-- course level section -->
+<section class="py-10">
+      <h2 class="text-4xl font-bold mb-8 text-center">
+        <span class="text-sky-400">Let's</span> Learn Vocabulary
+      </h2>
+
+      <div
+        id="level-container"
+        class="flex gap-5 flex-wrap justify-center"
+      ></div>
+      
+      
+      <!-- here flex will ve applied on new div elements created vy createElement in script.js file...
+       flex-wrap will flex the voxes according to the screen size means in small devices it is useful -->
+    </section>
+
+   <section
+      id="word-container"
+      class="bg-gray-100 p-10 w-11/12 mx-auto my-10 grid grid-cols-3 gap-5"
+    >
+    <!-- use mx-auto for proper margin..specially in voxes which take the whole space or vigger space -->
+<!-- 
+      <div
+        class="text-center bg-sky-100 col-span-full rounded-xl py-10 space-y-6 font-bangla"
+      >
+        <p class="text-xl font-medium text-gray-400">
+          আপনি এখনো কোন Lesson Select করেন নি
+        </p>
+        <h2 class="font-bold text-4xl">একটি Lesson Select করুন।</h2>
+      </div>
+    </section> -->
 
 
+    <script src="./script.js"></script>
 
 
     
