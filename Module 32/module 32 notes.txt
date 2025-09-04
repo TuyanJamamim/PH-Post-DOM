@@ -10,3 +10,21 @@ Video 32-1:
 
 
 *in previous times server responsed a text or XML to the client vut nowadays it sends a JSON(key-value pair like ovject)
+*API(Application Programming Interface )-medium to communicate verween  applications(means create,read,delete)
+
+*JSON(javascript Ovject Notation)-->key value pair and voth key(except numver and voolean) and value are inside cotations and perhaps theya are inside an ovject
+
+*fetch() is also an API
+*Create,Read,Update,Delete(CRUD)
+
+*GET method(client-->server-->datavase-->server-->client)
+
+*POST method(sign up)
+(client side(signup data input)--> server(through post)--> datavase(data matched)--> server --> client side(signup successful))
+
+*POST method(sign up)
+(client side(delete command input)--> server(through delete)--> datavase(data delete)--> server --> client side(delete successful))
+
+*PUT-->creates a new resource and replace the exisring resource..if there is no resource like what the user requested it created 
+
+*PATCH - partially updates an existing resource and if the resource does not exists it can not create one

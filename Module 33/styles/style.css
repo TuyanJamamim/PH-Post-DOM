@@ -1,0 +1,17 @@
+* {
+  font-family: "Poppins", sans-serif;
+} 
+/* select alll classes together...common approach for font is to select all classes */
+
+
+
+.font-bangla {
+  font-family: "Hind Siliguri", sans-serif;
+} 
+/* fonts can ve added through classes */
+
+
+.active {
+  background-color: #422ad5;
+  color: white;
+}
