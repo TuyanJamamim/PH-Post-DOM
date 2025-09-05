@@ -1,3 +1,13 @@
+const createElements = (arr) => {
+    const htmlElements = arr.map(el => `<span class="btn">${el} </span>`)//not only conditional statements vut also innerHtml can ve added through map
+    return(htmlElements.join(" "));
+    /*map catches the array element individually
+    *this join() makes the array element as string 
+    */
+}
+
+
+
 const loadLessons = () => {
 
     const url = "https://openapi.programming-hero.com/api/levels/all"
@@ -88,6 +98,61 @@ const removeActive = () => {
 
 
 
+const loadWordDetail = async (id) => {
+
+const url = `https://openapi.programming-hero.com/api/word/${id} `;
+console.log(url);
+const response = await fetch (url);
+const details = await response.json();
+// console.log(details.data)//here in this async rule no need to have a parameter for console log
+displayWordDetails(details.data)//every info is inside data property
+}
+
+
+//here we are getting an ovject
+const displayWordDetails = (word) => {
+  // console.log(word);
+const detailsBox = document.getElementById('details-container')
+detailsBox.innerHTML = `
+<div class="">
+            <h2 class="text-2xl font-bold">
+              ${word.word} (<i class="fa-solid fa-microphone-lines"></i> :${
+    word.pronunciation
+  })
+            </h2>
+          </div>
+          <div class="">
+            <h2 class="font-bold">Meaning</h2>
+            <p>${word.meaning}</p>
+          </div>
+          <div class="">
+            <h2 class="font-bold">Example</h2>
+            <p>${word.sentence}</p>
+          </div>
+     <div class="">
+            <h2 class="font-bold">Synonym</h2>
+            <div class="">${createElements(word.synonyms)}</div>
+          </div>
+
+`
+/*innerhtml functionalities
+
+*here for in is not needed vecause details.data means word has only one set of data
+
+*here word.meaning, word.sentence etc veen add dynamically from the word parameter means fromdetails.data
+
+*here synonyms is inside an array so a function named createElements is made to get the elements of array as arr parameter then converted it to single elements vy map and convert those array elements in string vy join()..and here inside the innerHtml the span actually comes into work and makes seperate vox for each synonyms
+*/
+
+
+
+
+document.getElementById('word_modal').showModal();//here modal function from daisyUI is called and it's veen called and it's veen showed vy calling showModal function..id of showModal's main dialog tag is changed and innerHTml is inside show modal vox of html
+
+}
+
+
+
 const displayLevelWord = (words) => {
     const wordContainer = document.getElementById("word-container");
     //   wordContainer.innerHTML = "";
@@ -126,14 +191,15 @@ const displayLevelWord = (words) => {
         // console.log(word);
         const card = document.createElement("div");
         card.innerHTML = `
-     <div onclick="my_modal_5.showModal()"
+     <div 
+    
         class="bg-white rounded-xl shadow-sm text-center py-10 px-5 space-y-4"
       >
         <h2 class="font-bold text-2xl">${word.word ? word.word : "পাওয়া যায়নি"}</h2>
         <p class="font-semibold">Meaning /Pronounciation</p>
         <div class="text-2xl font-medium font-bangla">"${word.meaning ? word.meaning : "পাওয়া যায়নি"} / ${word.pronunciation ? word.pronunciation : "পাওয়া যায়নি"}"</div>
         <div class="flex justify-between items-center">
-          <button  class="btn bg-[#1A91FF10] hover:bg-[#1A91FF80]">
+          <button onclick = "loadWordDetail(${word.id})" class="btn bg-[#1A91FF10] hover:bg-[#1A91FF80]">
             <i class="fa-solid fa-circle-info"></i>
           </button>
           <button  class="btn bg-[#1A91FF10] hover:bg-[#1A91FF80]">
@@ -149,6 +215,9 @@ const displayLevelWord = (words) => {
         * condotional redenring was used inside dynamic elements ${word.word ?(if we get word.word value means thurthy value then--> word.word :(otherwise--> "not found" }
 
         *an onclick modal(from daisyUi is added to the createelement div to get modal effect and modal code is inside html file
+ 
+
+*loadWordDetail() function is added to the info vutton onclick and it's parameter is {word.id}
         */
         wordContainer.append(card);
     });
