@@ -112,6 +112,81 @@ const loadLevelWord = (id) => {
 
 }
 
+const displayLevelWord = (words) => {
+  const wordContainer = document.getElementById("word-container");
+  //   wordContainer.innerHTML = "";
+  wordContainer.innerHTML = "";
+
+  /* there are some vuttons like lesson-4 where there is no elements inside their array */
+  if (words.length === 0) {
+    // alert("no lesson detected")
+
+    wordContainer.innerHTML = `
+    <div 
+        class="text-center bg-sky-100 col-span-full rounded-xl py-10 space-y-6 font-bangla"
+      >
+     <img class="mx-auto" src="./assets/alert-error.png" alt="">
+        <p class="text-xl font-medium text-gray-400">
+          এই লেসন এখনও অ্যাড  হয়নি 
+        </p>
+        <h2 class="font-bold text-4xl">নেক্সট লেসন এ যান</h2>
+      </div>
+
+    `
+    /* word container innerHtml functionality:
+     if array length is 0 then add another div vox*/
+    return;
+  }
+
+  //   {
+  //     "id": 82,
+  //     "level": 1,
+  //     "word": "Car",
+  //     "meaning": "গাড়ি",
+  //     "pronunciation": "কার"
+  // }
+
+  words.forEach((word) => {
+    // console.log(word);
+    const card = document.createElement("div");
+    card.innerHTML = `
+     <div 
+    
+        class="bg-white rounded-xl shadow-sm text-center py-10 px-5 space-y-4"
+      >
+        <h2 class="font-bold text-2xl">${word.word ? word.word : "পাওয়া যায়নি"}</h2>
+        <p class="font-semibold">Meaning /Pronounciation</p>
+        <div class="text-2xl font-medium font-bangla">"${word.meaning ? word.meaning : "পাওয়া যায়নি"} / ${word.pronunciation ? word.pronunciation : "পাওয়া যায়নি"}"</div>
+        <div class="flex justify-between items-center">
+          <button onclick = "loadWordDetail(${word.id})" class="btn bg-[#1A91FF10] hover:bg-[#1A91FF80]">
+            <i class="fa-solid fa-circle-info"></i>
+          </button>
+          <button onclick = "pronounceWord('${word.word}')"  class="btn bg-[#1A91FF10] hover:bg-[#1A91FF80]">
+            <i class="fa-solid fa-volume-high"></i>
+          </button>
+        </div>
+      </div>
+    `;
+
+    /* create Element innerHTML functionalities
+    *dynamically word.word , word.meaning added for every element of word data.data array
+    
+    * condotional redenring was used inside dynamic elements ${word.word ?(if we get word.word value means thurthy value then--> word.word :(otherwise--> "not found" }
+
+    *an onclick modal(from daisyUi is added to the createelement div to get modal effect and modal code is inside html file
+
+    *******always the load functions need to ve called from vutton click*******
+ 
+
+*loadWordDetail() function is added to the info vutton onclick and it's parameter is {word.id}
+
+*inside sound vutton(i tag) pronounceWord 
+word.word parameter is added to add sound..as the word is a string so it is added inside " "
+    */
+    wordContainer.append(card);
+  });
+
+}
 
 const removeActive = () => {
   const lessonButtons = document.querySelectorAll(".lesson-btn")//perhaps this can also ve done vy getelemenstvyClass vut provlem is we would not run arrow function in that 
@@ -176,86 +251,15 @@ const displayWordDetails = (word) => {
 
 
 
-const displayLevelWord = (words) => {
-  const wordContainer = document.getElementById("word-container");
-  //   wordContainer.innerHTML = "";
-  wordContainer.innerHTML = "";
 
-  /* there are some vuttons like lesson-4 where there is no elements inside their array */
-  if (words.length === 0) {
-    // alert("no lesson detected")
-
-    wordContainer.innerHTML = `
-    <div 
-        class="text-center bg-sky-100 col-span-full rounded-xl py-10 space-y-6 font-bangla"
-      >
-     <img class="mx-auto" src="./assets/alert-error.png" alt="">
-        <p class="text-xl font-medium text-gray-400">
-          এই লেসন এখনও অ্যাড  হয়নি 
-        </p>
-        <h2 class="font-bold text-4xl">নেক্সট লেসন এ যান</h2>
-      </div>
-
-    `
-    /* word container innerHtml functionality:
-     if array length is 0 then add another div vox*/
-    return;
-  }
-
-  //   {
-  //     "id": 82,
-  //     "level": 1,
-  //     "word": "Car",
-  //     "meaning": "গাড়ি",
-  //     "pronunciation": "কার"
-  // }
-
-  words.forEach((word) => {
-    // console.log(word);
-    const card = document.createElement("div");
-    card.innerHTML = `
-     <div 
-    
-        class="bg-white rounded-xl shadow-sm text-center py-10 px-5 space-y-4"
-      >
-        <h2 class="font-bold text-2xl">${word.word ? word.word : "পাওয়া যায়নি"}</h2>
-        <p class="font-semibold">Meaning /Pronounciation</p>
-        <div class="text-2xl font-medium font-bangla">"${word.meaning ? word.meaning : "পাওয়া যায়নি"} / ${word.pronunciation ? word.pronunciation : "পাওয়া যায়নি"}"</div>
-        <div class="flex justify-between items-center">
-          <button onclick = "loadWordDetail(${word.id})" class="btn bg-[#1A91FF10] hover:bg-[#1A91FF80]">
-            <i class="fa-solid fa-circle-info"></i>
-          </button>
-          <button onclick = "pronounceWord('${word.word}')"  class="btn bg-[#1A91FF10] hover:bg-[#1A91FF80]">
-            <i class="fa-solid fa-volume-high"></i>
-          </button>
-        </div>
-      </div>
-    `;
-
-    /* create Element innerHTML functionalities
-    *dynamically word.word , word.meaning added for every element of word data.data array
-    
-    * condotional redenring was used inside dynamic elements ${word.word ?(if we get word.word value means thurthy value then--> word.word :(otherwise--> "not found" }
-
-    *an onclick modal(from daisyUi is added to the createelement div to get modal effect and modal code is inside html file
- 
-
-*loadWordDetail() function is added to the info vutton onclick and it's parameter is {word.id}
-
-*inside sound vutton(i tag) pronounceWord 
-word.word parameter is added to add sound..as the word is a string so it is added inside " "
-    */
-    wordContainer.append(card);
-  });
-
-}
 
 
 document.getElementById('btn-search').addEventListener('click', () => {
   removeActive();
   const input = document.getElementById('input-search');
-  const searchVAlue = input.value.trim().toLowerCase();//converted to lowercase so if anyone eneters anything in any case it wont make any provlem
+  const searchVAlue = input.value.trim().toLowerCase();//converted to lowercase so if anyone eneters anything in any case it wont make any provlem...trim means it can also take (c  at) value
   console.log(searchVAlue);
+  //here words/all is fteched vecause only the words values are inside the this json file
   fetch('https://openapi.programming-hero.com/api/words/all').then((res) => res.json()).then((data) => {
     const allWords = data.data;
     console.log(allWords)

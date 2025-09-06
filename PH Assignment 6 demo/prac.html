@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Fixed Navbar Test</title>
+</head>
+<body class="bg-gray-100">
+  <header class="fixed top-0 w-full z-50">
+    <div class="navbar bg-green-700 shadow-sm">
+      <div class="navbar-start">
+        <a class="btn btn-ghost text-xl text-amber-50">Green Earth</a>
+      </div>
+      <div class="navbar-center hidden lg:flex">
+        <ul class="menu menu-horizontal px-1">
+          <li><a class="text-amber-50">About</a></li>
+          <li><a class="text-amber-50">Gallery</a></li>
+          <li><a class="text-amber-50">Plant a Tree</a></li>
+        </ul>
+      </div>
+      <div class="navbar-end">
+        <a class="btn text-green-700 bg-amber-400 rounded-3xl">Plant a Tree</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="pt-16">
+    <section class="p-6">
+      <h1 class="text-3xl font-bold mb-4">Welcome to Green Earth</h1>
+      <p>Scroll down, navbar will stay fixed.</p>
+      <div class="h-[2000px] bg-gray-200 mt-6">Long content...</div>
+    </section>
+  </main>
+</body>
+</html>
