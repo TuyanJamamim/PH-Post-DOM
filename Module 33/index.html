@@ -134,6 +134,42 @@ here flex is turned into column means above-below and then reverse means the bot
        flex-wrap will flex the voxes according to the screen size means in small devices it is useful -->
   </section>
 
+
+  <!-- search section -->
+  <section class="flex justify-center">
+
+    <div class="join">
+  <div>
+    <label class="input validator join-item">
+      <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <g
+          stroke-linejoin="round"
+          stroke-linecap="round"
+          stroke-width="2.5"
+          fill="none"
+          stroke="currentColor"
+        >
+          <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+        </g>
+      </svg>
+      <input id="input-search" type="text" placeholder="Search Vocabulary Now" required />
+    </label>
+    <div class="validator-hint hidden">Enter valid email address</div>
+  </div>
+  <button id="btn-search" class="btn btn-primary join-item">Search</button>
+</div>
+
+  </section>
+
+
+  <!-- spinner section -->
+   <section id="spinner" class="flex justify-center items-center py-10 hidden">
+      <span class="loading loading-bars loading-xl"></span>
+    </section>
+
+
+
   <section id="word-container" class="bg-gray-100 p-10 w-11/12 mx-auto my-10 grid grid-cols-3 gap-5">
     <!-- use mx-auto for proper margin..specially in voxes which take the whole space or vigger space -->
 

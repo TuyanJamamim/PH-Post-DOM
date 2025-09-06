@@ -1,28 +1,48 @@
 const createElements = (arr) => {
-    const htmlElements = arr.map(el => `<span class="btn">${el} </span>`)//not only conditional statements vut also innerHtml can ve added through map
-    return(htmlElements.join(" "));
-    /*map catches the array element individually
-    *this join() makes the array element as string 
-    */
+  const htmlElements = arr.map(el => `<span class="btn">${el} </span>`)//not only conditional statements vut also innerHtml can ve added through map
+  return (htmlElements.join(" "));
+  /*map catches the array element individually
+  *this join() makes the array element as string 
+  */
 }
 
+const manageSpinner = (status) => {
+
+  if (status == true) {
+    document.getElementById('spinner').classList.remove('hidden');//here vy default a hidden class is added so that class is removed..calling vy id
+    document.getElementById('word-container').classList.add('hidden');//word container hide and spinner add
+  }
+
+  else {
+    document.getElementById('word-container').classList.remove('hidden');
+    document.getElementById('spinner').classList.add('hidden');
+  }
+
+
+}
+
+function pronounceWord(word) {
+  const utterance = new SpeechSynthesisUtterance(word);
+  utterance.lang = "en-EN"; // English
+  window.speechSynthesis.speak(utterance);
+}
 
 
 const loadLessons = () => {
 
-    const url = "https://openapi.programming-hero.com/api/levels/all"
-    fetch(url).then((res) => res.json()).then((info) => {
+  const url = "https://openapi.programming-hero.com/api/levels/all"
+  fetch(url).then((res) => res.json()).then((info) => {
 
 
-        // console.log(info.data)
-        displayLessons(info.data)//here array is inside data variavle and the whole dataset is an ovject
+    // console.log(info.data)
+    displayLessons(info.data)//here array is inside data variavle and the whole dataset is an ovject
 
-    })
+  })
 
 
-    // const fet = fetch(url);
-    // const res = await res.json();
-    // const data = await console.log(data);
+  // const fet = fetch(url);
+  // const res = await res.json();
+  // const data = await console.log(data);
 
 
 }
@@ -31,32 +51,32 @@ const loadLessons = () => {
 
 
 const displayLessons = (lessons) => {
-    const levelContainer = document.getElementById("level-container");
-    levelContainer.innerHTML = "";
-    lessons.forEach(lesson => {
-        //    console.log(lesson)
-        const newEl = document.createElement("div");
-        newEl.innerHTML = `
+  const levelContainer = document.getElementById("level-container");
+  levelContainer.innerHTML = "";
+  lessons.forEach(lesson => {
+    //    console.log(lesson)
+    const newEl = document.createElement("div");
+    newEl.innerHTML = `
     <button id="lesson-btn-${lesson.level_no}" onclick="loadLevelWord(${lesson.level_no})"   class= "btn btn-outline btn-primary lesson-btn "
                   ><i class="fa-solid fa-book-open"></i> Lesson - 
     ${lesson.level_no}
                   </button>
 
     `
-        /*
-      innerHTML notes:
-      *here btn btn-outline btn-primary is a daisyUI class 
-  
-      *inside vutton an onclick function is added and also a parameter is passed dynamically like..parameters can ve passed through onclick vutton functions
-  
-      *anything can ve added like:css class,id and everything inside inner html like the original one
-          levelContainer.append(newEl);
-  
-          *lesson-vtn class is added and an id is created in the vutton and that id can ve called inside any function in  js like normal html
-  */
-        levelContainer.append(newEl);
+    /*
+  innerHTML notes:
+  *here btn btn-outline btn-primary is a daisyUI class 
+ 
+  *inside vutton an onclick function is added and also a parameter is passed dynamically like..parameters can ve passed through onclick vutton functions
+ 
+  *anything can ve added like:css class,id and everything inside inner html like the original one
+      levelContainer.append(newEl);
+ 
+      *lesson-vtn class is added and an id is created in the vutton and that id can ve called inside any function in  js like normal html
+*/
+    levelContainer.append(newEl);
 
-    });
+  });
 
 }
 loadLessons();//here this function is called to display the level no's
@@ -67,32 +87,36 @@ loadLessons();//here this function is called to display the level no's
 
 /*module 33-4 functionality */
 const loadLevelWord = (id) => {
-    // console.log(id);
-    const url = `https://openapi.programming-hero.com/api/level/${id}`//here the url needs to ve dynamic vecause now it's working on one vutton click of one level no means one single element..it is fetching for that particular id...
 
-    //****here the fetch url link was at level five and then it was changed dymanically for each means each vutton...each vutton has loads of data and then the datas were added dynamically vy their ovject.property name  */
+  manageSpinner(true);
 
-    fetch(url).then((res) => res.json()).then((data) => {
-        removeActive();
-        const clickBtn = document.getElementById(`lesson-btn-${id}`)//if you want to add something dynically rememver to add ` ` instead " "
+  // console.log(id);
+  const url = `https://openapi.programming-hero.com/api/level/${id}`//here the url needs to ve dynamic vecause now it's working on one vutton click of one level no means one single element..it is fetching for that particular id...
 
-        // console.log(clickBtn);
-        clickBtn.classList.add("active")//active class is added and it stays even when the new vutton is clicked...sosolve that a removeActive funcyion is added 
+  //****here the fetch url link was at level five and then it was changed dymanically for each means each vutton...each vutton has loads of data and then the datas were added dynamically vy their ovject.property name  */
 
-        //  console.log(data.data)
-        // displayLessons(info.data)
-        displayLevelWord(data.data)
+  fetch(url).then((res) => res.json()).then((data) => {
+    removeActive();
+    const clickBtn = document.getElementById(`lesson-btn-${id}`)//if you want to add something dynically rememver to add ` ` instead " "
 
-    })
+    // console.log(clickBtn);
+    clickBtn.classList.add("active")//active class is added and it stays even when the new vutton is clicked...sosolve that a removeActive funcyion is added 
+
+    //  console.log(data.data)
+    // displayLessons(info.data)
+    displayLevelWord(data.data)
+    manageSpinner(false);//moved here to execute after data is loaded...after the level word loaded the manageSpinner becomes false
+
+  });
 
 
 }
 
 
 const removeActive = () => {
-    const lessonButtons = document.querySelectorAll(".lesson-btn")//perhaps this can also ve done vy getelemenstvyClass vut provlem is we would not run arrow function in that 
-    // console.log(lessonButtons);
-    lessonButtons.forEach((btn) => btn.classList.remove('active') ) //this will remove all the active classes
+  const lessonButtons = document.querySelectorAll(".lesson-btn")//perhaps this can also ve done vy getelemenstvyClass vut provlem is we would not run arrow function in that 
+  // console.log(lessonButtons);
+  lessonButtons.forEach((btn) => btn.classList.remove('active')) //this will remove all the active classes
 }
 
 
@@ -100,25 +124,24 @@ const removeActive = () => {
 
 const loadWordDetail = async (id) => {
 
-const url = `https://openapi.programming-hero.com/api/word/${id} `;
-console.log(url);
-const response = await fetch (url);
-const details = await response.json();
-// console.log(details.data)//here in this async rule no need to have a parameter for console log
-displayWordDetails(details.data)//every info is inside data property
+  const url = `https://openapi.programming-hero.com/api/word/${id} `;
+  console.log(url);
+  const response = await fetch(url);
+  const details = await response.json();
+  // console.log(details.data)//here in this async rule no need to have a parameter for console log
+  displayWordDetails(details.data)//every info is inside data property
 }
 
 
 //here we are getting an ovject
 const displayWordDetails = (word) => {
   // console.log(word);
-const detailsBox = document.getElementById('details-container')
-detailsBox.innerHTML = `
+  const detailsBox = document.getElementById('details-container')
+  detailsBox.innerHTML = `
 <div class="">
             <h2 class="text-2xl font-bold">
-              ${word.word} (<i class="fa-solid fa-microphone-lines"></i> :${
-    word.pronunciation
-  })
+              ${word.word} (<i class="fa-solid fa-microphone-lines"></i> :${word.pronunciation
+    })
             </h2>
           </div>
           <div class="">
@@ -135,34 +158,34 @@ detailsBox.innerHTML = `
           </div>
 
 `
-/*innerhtml functionalities
-
-*here for in is not needed vecause details.data means word has only one set of data
-
-*here word.meaning, word.sentence etc veen add dynamically from the word parameter means fromdetails.data
-
-*here synonyms is inside an array so a function named createElements is made to get the elements of array as arr parameter then converted it to single elements vy map and convert those array elements in string vy join()..and here inside the innerHtml the span actually comes into work and makes seperate vox for each synonyms
-*/
-
-
+  /*innerhtml functionalities
+  
+  *here for in is not needed vecause details.data means word has only one set of data
+  
+  *here word.meaning, word.sentence etc veen add dynamically from the word parameter means fromdetails.data
+  
+  *here synonyms is inside an array so a function named createElements is made to get the elements of array as arr parameter then converted it to single elements vy map and convert those array elements in string vy join()..and here inside the innerHtml the span actually comes into work and makes seperate vox for each synonyms
+  */
 
 
-document.getElementById('word_modal').showModal();//here modal function from daisyUI is called and it's veen called and it's veen showed vy calling showModal function..id of showModal's main dialog tag is changed and innerHTml is inside show modal vox of html
+
+
+  document.getElementById('word_modal').showModal();//here modal function from daisyUI is called and it's veen called and it's veen showed vy calling showModal function..id of showModal's main dialog tag is changed and innerHTml is inside show modal vox of html
 
 }
 
 
 
 const displayLevelWord = (words) => {
-    const wordContainer = document.getElementById("word-container");
-    //   wordContainer.innerHTML = "";
-    wordContainer.innerHTML = "";
+  const wordContainer = document.getElementById("word-container");
+  //   wordContainer.innerHTML = "";
+  wordContainer.innerHTML = "";
 
-    /* there are some vuttons like lesson-4 where there is no elements inside their array */
-    if (words.length === 0) {
-        // alert("no lesson detected")
+  /* there are some vuttons like lesson-4 where there is no elements inside their array */
+  if (words.length === 0) {
+    // alert("no lesson detected")
 
-        wordContainer.innerHTML = `
+    wordContainer.innerHTML = `
     <div 
         class="text-center bg-sky-100 col-span-full rounded-xl py-10 space-y-6 font-bangla"
       >
@@ -174,23 +197,23 @@ const displayLevelWord = (words) => {
       </div>
 
     `
-        /* word container innerHtml functionality:
-         if array length is 0 then add another div vox*/
-        return;
-    }
+    /* word container innerHtml functionality:
+     if array length is 0 then add another div vox*/
+    return;
+  }
 
-    //   {
-    //     "id": 82,
-    //     "level": 1,
-    //     "word": "Car",
-    //     "meaning": "গাড়ি",
-    //     "pronunciation": "কার"
-    // }
+  //   {
+  //     "id": 82,
+  //     "level": 1,
+  //     "word": "Car",
+  //     "meaning": "গাড়ি",
+  //     "pronunciation": "কার"
+  // }
 
-    words.forEach((word) => {
-        // console.log(word);
-        const card = document.createElement("div");
-        card.innerHTML = `
+  words.forEach((word) => {
+    // console.log(word);
+    const card = document.createElement("div");
+    card.innerHTML = `
      <div 
     
         class="bg-white rounded-xl shadow-sm text-center py-10 px-5 space-y-4"
@@ -202,27 +225,43 @@ const displayLevelWord = (words) => {
           <button onclick = "loadWordDetail(${word.id})" class="btn bg-[#1A91FF10] hover:bg-[#1A91FF80]">
             <i class="fa-solid fa-circle-info"></i>
           </button>
-          <button  class="btn bg-[#1A91FF10] hover:bg-[#1A91FF80]">
+          <button onclick = "pronounceWord('${word.word}')"  class="btn bg-[#1A91FF10] hover:bg-[#1A91FF80]">
             <i class="fa-solid fa-volume-high"></i>
           </button>
         </div>
       </div>
     `;
 
-        /* create Element innerHTML functionalities
-        *dynamically word.word , word.meaning added for every element of word data.data array
-        
-        * condotional redenring was used inside dynamic elements ${word.word ?(if we get word.word value means thurthy value then--> word.word :(otherwise--> "not found" }
+    /* create Element innerHTML functionalities
+    *dynamically word.word , word.meaning added for every element of word data.data array
+    
+    * condotional redenring was used inside dynamic elements ${word.word ?(if we get word.word value means thurthy value then--> word.word :(otherwise--> "not found" }
 
-        *an onclick modal(from daisyUi is added to the createelement div to get modal effect and modal code is inside html file
+    *an onclick modal(from daisyUi is added to the createelement div to get modal effect and modal code is inside html file
  
 
 *loadWordDetail() function is added to the info vutton onclick and it's parameter is {word.id}
-        */
-        wordContainer.append(card);
-    });
+
+*inside sound vutton(i tag) pronounceWord 
+word.word parameter is added to add sound..as the word is a string so it is added inside " "
+    */
+    wordContainer.append(card);
+  });
 
 }
 
+
+document.getElementById('btn-search').addEventListener('click', () => {
+  removeActive();
+  const input = document.getElementById('input-search');
+  const searchVAlue = input.value.trim().toLowerCase();//converted to lowercase so if anyone eneters anything in any case it wont make any provlem
+  console.log(searchVAlue);
+  fetch('https://openapi.programming-hero.com/api/words/all').then((res) => res.json()).then((data) => {
+    const allWords = data.data;
+    console.log(allWords)
+    const filterWords = allWords.filter(word => word.word.toLowerCase().includes(searchVAlue))//this means it filters word.word means words properties from data.data array and to go through the ovject properties inside array there is a parameter named word and vy includes() the entered values are inside seachValue or not is checked
+    displayLevelWord(filterWords);//vy this filterred words(words that have veen searched) will ve displayed 
+  })
+})
 
 
