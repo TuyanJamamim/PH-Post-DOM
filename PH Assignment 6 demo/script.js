@@ -59,7 +59,10 @@ const loadTree = (num) =>
                         <div class="mr-4">৳${plant.price}</div>
                     </div>
 
-                    <div onclick="displayCart()" class="flex justify-center items-center bg-green-600 rounded-2xl mx-4">Add To Cart</div>
+                   <div onclick='addToCart(${JSON.stringify(plant)})' 
+                class="cursor-pointer flex justify-center items-center bg-green-600 text-white rounded-2xl mx-4 p-2">
+                Add To Cart
+            </div>
                 </div>
 
     
@@ -70,9 +73,7 @@ const loadTree = (num) =>
         })
     }
 
-const displayCart = () =>{
-    
-}
+
 
 
 
@@ -110,7 +111,10 @@ el2.innerHTML = `
                         <div class="mr-4">৳${plant.price}</div>
                     </div>
 
-                    <div class="flex justify-center items-center bg-green-600 rounded-2xl mx-4">Add To Cart</div>
+                    <div onclick='addToCart(${JSON.stringify(plant)})' 
+                class="cursor-pointer flex justify-center items-center bg-green-600 text-white rounded-2xl mx-4 p-2">
+                Add To Cart
+            </div>
                 </div>
 
     
@@ -123,3 +127,46 @@ cardContainer.append(el2)
 }
 
 allPlantLoad()
+
+
+let total = 0;
+
+const addToCart = (plant) => {
+    const cartContainer = document.getElementById("cart-container");
+
+    const el4 = document.createElement("div");
+    el4.classList = "bg-green-200 m-2 p-2 flex justify-between items-center rounded-lg";
+
+    el4.innerHTML = `
+        <div>
+            <h1 class="font-bold">${plant.category}</h1>
+            <p>৳${plant.price}</p>
+        </div>
+        <div>
+            <i class="fa-solid fa-xmark cursor-pointer text-red-600"></i>
+        </div>
+    `;
+
+    el4.querySelector("i").addEventListener("click", () => {
+        cartContainer.removeChild(el4);
+        total -= plant.price;
+        updateTotal();
+    });
+
+    cartContainer.appendChild(el4);
+
+    total += plant.price;
+    updateTotal();
+};
+
+const updateTotal = () => {
+    let totalEl = document.getElementById("cart-total");
+    if (!totalEl) {
+        totalEl = document.createElement("h1");
+        totalEl.id = "cart-total";
+        totalEl.classList = "font-bold mt-4";
+        document.getElementById("cart-container").append(totalEl);
+    }
+    totalEl.innerText = `Total: ৳${total}`;
+};
+
