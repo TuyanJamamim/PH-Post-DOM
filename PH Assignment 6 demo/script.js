@@ -7,51 +7,56 @@ const categoryLoad = () => {
 }
 
 const displayCategories = (catas) => {
-    
-       
-        const categoryContainer = document.getElementById('category-container');
-        categoryContainer.innerHTML = "";
-catas.forEach(cata => {
+
+
+    const categoryContainer = document.getElementById('category-container');
+    categoryContainer.innerHTML = "";
+    catas.forEach(cata => {
         const el1 = document.createElement('div');
         el1.innerHTML = `
         
- <button onclick="loadTree(${cata.id})"  class= "btn btn-soft btn-success">
+ <button id = "cata-vutton-${cata.id}"
+  onclick="loadTree(${cata.id})"  class= "btn btn-soft btn-success cata-vtn">
  ${cata.category_name}
     
                   </button>
 
         `
-categoryContainer.append(el1);
+        categoryContainer.append(el1);
     });
 }
 
 categoryLoad();
 
-const loadTree = (num) =>
-    {
-        const url = `https://openapi.programming-hero.com/api/category/${num}`
-        fetch(url).then((res) => res.json()).then((data) => {
+const loadTree = (num) => {
+    const url = `https://openapi.programming-hero.com/api/category/${num}`
+    fetch(url).then((res) => res.json()).then((data) => {
         // console.log(data.categories);
         // displayCategories(data.plants)
-        displayTree(data.plants)
+        removeActive()
+        const clickBtn = document.getElementById(`cata-vutton-${num}`)
+        clickBtn.classList.add("active")
+        displayTree(data.plants);
+
 
     })
-        
-    } 
+
+}
 
 
-    const displayTree = (plants) => {
-       const treeContainer =  document.getElementById('card-container')
-       treeContainer.innerHTML = '';
-        plants.forEach(plant => {
-       const el3 = document.createElement('div')
-       el3.innerHTML = `
+const displayTree = (plants) => {
+    const treeContainer = document.getElementById('card-container')
+    treeContainer.innerHTML = '';
+    plants.forEach(plant => {
+        const el3 = document.createElement('div')
+        el3.innerHTML = `
        <div class="bg-white space-y-3 rounded-2xl ">
 
                     <div class="bg-gray-100 rounded-2xl m-4">
                         <img class ="w-full h-70 rounded-2xl" src="${plant.image}" alt="">
                     </div>
-                    <h1 class="ml-4 font-bold">${plant.name}</h1>
+                    <h1 onclick = "loadTreeDetail(${plant.id})"
+                     class="ml-4 font-bold">${plant.name}</h1>
                     <p class="ml-4">${plant.description}
                     </p>
                     <div class="flex justify-between items-center">
@@ -69,18 +74,23 @@ const loadTree = (num) =>
 </div>
        
        `
-       treeContainer.append(el3);
-        })
-    }
+
+
+        treeContainer.append(el3);
+    })
+}
+
+const removeActive = () => {
+    const cataVuttons = document.querySelectorAll(".cata-vtn")
+    cataVuttons.forEach((vtn) => vtn.classList.remove('active'));
+}
 
 
 
 
 
 
-
-const allPlantLoad = () =>
-{
+const allPlantLoad = () => {
     const url = "https://openapi.programming-hero.com/api/plants"
     fetch(url).then((res) => res.json()).then((data) => {
         // console.log(data.plants)
@@ -90,20 +100,21 @@ const allPlantLoad = () =>
     })
 }
 
-displayAllPlant = (plants) =>{
+displayAllPlant = (plants) => {
     const cardContainer = document.getElementById('card-container');
     cardContainer.innerHTML = "";
     plants.forEach(plant => {
 
-const el2 = document.createElement('div');
-el2.innerHTML = `
+        const el2 = document.createElement('div');
+        el2.innerHTML = `
 
 <div class="bg-white space-y-3 rounded-2xl  ">
 
                     <div class="bg-gray-100 ">
                         <img class=" w-full h-70 rounded-2xl " src="${plant.image}" alt="">
                     </div>
-                    <h1 class="ml-4 font-bold">${plant.name}</h1>
+                    <h1  onclick = "loadTreeDetail(${plant.id})"
+                     class="ml-4 font-bold">${plant.name}</h1>
                     <p class="ml-4">${plant.description}
                     </p>
                     <div class="flex justify-between items-center">
@@ -121,7 +132,7 @@ el2.innerHTML = `
 </div>
 
 `
-cardContainer.append(el2)
+        cardContainer.append(el2)
 
     })
 }
@@ -132,6 +143,7 @@ allPlantLoad()
 let total = 0;
 
 const addToCart = (plant) => {
+    alert(`${plant.name} has been added to the cart`)
     const cartContainer = document.getElementById("cart-container");
 
     const el4 = document.createElement("div");
@@ -139,7 +151,7 @@ const addToCart = (plant) => {
 
     el4.innerHTML = `
         <div>
-            <h1 class="font-bold">${plant.category}</h1>
+            <h1 class="font-bold">${plant.name}</h1>
             <p>৳${plant.price}</p>
         </div>
         <div>
@@ -170,3 +182,57 @@ const updateTotal = () => {
     totalEl.innerText = `Total: ৳${total}`;
 };
 
+const loadTreeDetail = async (id) => {
+
+    const url = `
+   https://openapi.programming-hero.com/api/plant/${id}
+  `;
+    console.log(url);
+    const response = await fetch(url);
+    const details = await response.json();
+
+    //   displayWordDetails(details.data)
+    displayTreeDetail(details.plants);
+}
+
+const displayTreeDetail = (tree) => {
+
+    const detailsBox = document.getElementById('details-container')
+    detailsBox.innerHTML = `
+  
+  <div class="m-4 p-5 space-y-2">
+        <h1 class="font-bold text-2xl">${tree.name}</h1>
+        <img class="w-full h-70 rounded-2xl" src="${tree.image}" alt="">
+        
+        <div class="flex">
+<p class="font-bold">Category:</p>
+        
+     <div>
+           ${tree.category}
+     </div>
+
+</div>
+
+
+
+ <div class="flex">
+<p class="font-bold">Price:</p>
+        
+     <div>
+           ৳${tree.price}
+     </div>
+
+</div> 
+
+<div class="flex">
+<p class="font-bold">Description:</p>
+        
+     
+${tree.description} 
+     
+
+</div>
+    </div>
+  `
+    document.getElementById('word_modal').showModal();
+}
