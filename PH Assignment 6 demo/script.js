@@ -15,7 +15,7 @@ catas.forEach(cata => {
         const el1 = document.createElement('div');
         el1.innerHTML = `
         
- <button class= "btn btn-soft btn-success">
+ <button onclick="loadTree(${cata.id})"  class= "btn btn-soft btn-success">
  ${cata.category_name}
     
                   </button>
@@ -25,8 +25,58 @@ categoryContainer.append(el1);
     });
 }
 
-
 categoryLoad();
+
+const loadTree = (num) =>
+    {
+        const url = `https://openapi.programming-hero.com/api/category/${num}`
+        fetch(url).then((res) => res.json()).then((data) => {
+        // console.log(data.categories);
+        // displayCategories(data.plants)
+        displayTree(data.plants)
+
+    })
+        
+    } 
+
+
+    const displayTree = (plants) => {
+       const treeContainer =  document.getElementById('card-container')
+       treeContainer.innerHTML = '';
+        plants.forEach(plant => {
+       const el3 = document.createElement('div')
+       el3.innerHTML = `
+       <div class="bg-white space-y-3 rounded-2xl ">
+
+                    <div class="bg-gray-100 rounded-2xl m-4">
+                        <img src="${plant.image}" alt="">
+                    </div>
+                    <h1 class="ml-4 font-bold">${plant.name}</h1>
+                    <p class="ml-4">${plant.description}
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <div class=" bg-green-200 text-green-700 p-3 ml-4 rounded-2xl ">${plant.category}</div>
+                        <div class="mr-4">৳${plant.price}</div>
+                    </div>
+
+                    <div onclick="displayCart()" class="flex justify-center items-center bg-green-600 rounded-2xl mx-4">Add To Cart</div>
+                </div>
+
+    
+</div>
+       
+       `
+       treeContainer.append(el3);
+        })
+    }
+
+const displayCart = () =>{
+    
+}
+
+
+
+
 
 const allPlantLoad = () =>
 {
@@ -56,7 +106,7 @@ el2.innerHTML = `
                     <p class="ml-4">${plant.description}
                     </p>
                     <div class="flex justify-between items-center">
-                        <div class=" bg-green-200 text-green-700 ml-4 rounded-2xl">${plant.category}</div>
+                        <div class=" bg-green-200 text-green-700 p-3 ml-4 rounded-2xl">${plant.category}</div>
                         <div class="mr-4">৳${plant.price}</div>
                     </div>
 
