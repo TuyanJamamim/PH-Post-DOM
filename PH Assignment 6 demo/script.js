@@ -49,7 +49,7 @@ const loadTree = (num) =>
        <div class="bg-white space-y-3 rounded-2xl ">
 
                     <div class="bg-gray-100 rounded-2xl m-4">
-                        <img src="${plant.image}" alt="">
+                        <img class ="w-full h-70 rounded-2xl" src="${plant.image}" alt="">
                     </div>
                     <h1 class="ml-4 font-bold">${plant.name}</h1>
                     <p class="ml-4">${plant.description}
@@ -98,10 +98,10 @@ displayAllPlant = (plants) =>{
 const el2 = document.createElement('div');
 el2.innerHTML = `
 
-<div class="bg-white space-y-3 rounded-2xl ">
+<div class="bg-white space-y-3 rounded-2xl  ">
 
-                    <div class="bg-gray-100 rounded-2xl m-4">
-                        <img src="${plant.image}" alt="">
+                    <div class="bg-gray-100 ">
+                        <img class=" w-full h-70 rounded-2xl " src="${plant.image}" alt="">
                     </div>
                     <h1 class="ml-4 font-bold">${plant.name}</h1>
                     <p class="ml-4">${plant.description}
