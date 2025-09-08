@@ -28,7 +28,24 @@ const displayCategories = (catas) => {
 
 categoryLoad();
 
+const manageSpinner = (status) => {
+
+    if (status == true) {
+        document.getElementById('spinner').classList.remove('hidden');
+        document.getElementById('card-container').classList.add('hidden');
+    }
+
+    else {
+        document.getElementById('card-container').classList.remove('hidden');
+        document.getElementById('spinner').classList.add('hidden');
+    }
+
+
+}
+
 const loadTree = (num) => {
+    manageSpinner(true);
+
     const url = `https://openapi.programming-hero.com/api/category/${num}`
     fetch(url).then((res) => res.json()).then((data) => {
         // console.log(data.categories);
@@ -37,7 +54,7 @@ const loadTree = (num) => {
         const clickBtn = document.getElementById(`cata-vutton-${num}`)
         clickBtn.classList.add("active")
         displayTree(data.plants);
-
+        manageSpinner(false);
 
     })
 
@@ -236,3 +253,6 @@ ${tree.description}
   `
     document.getElementById('word_modal').showModal();
 }
+
+
+

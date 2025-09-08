@@ -56,7 +56,7 @@
     </header>
 
     <!-- Banner Section -->
-    <section class="bg-green-100 flex flex-col md:flex-row justify-center items-center p-6 mt-16">
+    <section class="bg-green-100 flex flex-col md:flex-row justify-center items-center  mt-16">
         <div>
             <img src="./assets/hero-leaf1.png" alt="">
         </div>
@@ -77,6 +77,16 @@
             Choose Your Trees
         </h2>
     </section>
+
+    <!-- spinner section -->
+    <section id="spinner" class="flex justify-center items-center py-10 hidden">
+        <span class="loading loading-ball loading-xs"></span>
+        <span class="loading loading-ball loading-sm"></span>
+        <span class="loading loading-ball loading-md"></span>
+        <span class="loading loading-ball loading-lg"></span>
+        <span class="loading loading-ball loading-xl"></span>
+    </section>
+
 
     <!-- Trees Functionality Main Vox -->
     <section class="p-6 flex flex-col md:flex-row gap-6">
@@ -101,21 +111,88 @@
     </section>
 
 
-    <!-- modal  -->
+    <!-- modal section-->
 
     <dialog id="word_modal" class="modal modal-bottom sm:modal-middle">
-    <div class="modal-box">
-      <div id="details-container">
+        <div class="modal-box">
+            <div id="details-container">
 
-      </div>
-      <div class="modal-action">
-        <form method="dialog">
-          <!-- if there is a button in form, it will close the modal -->
-          <button class="btn">Close</button>
-        </form>
-      </div>
+            </div>
+            <div class="modal-action">
+                <form method="dialog">
+
+                    <button class="btn">Close</button>
+                </form>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- Campaign text -->
+    <section class="py-5">
+        <h2 class="text-3xl font-semibold text-center">
+            About the Campaign
+        </h2>
+    </section>
+
+    <!-- tree pic and text -->
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-6 p-4 my-10">
+
+        <!-- pic -->
+        <div class="w-full md:w-1/2 flex justify-center">
+            <img src="./assets/about.png" alt="About Campaign" class="rounded-lg max-w-full h-auto" />
+        </div>
+
+        <!-- text -->
+        <div class="w-full md:w-1/2 flex flex-col justify-center">
+            <p class="mb-4 text-gray-700">
+                Green Earth is a global tree plantation initiative dedicated to fighting climate change.
+                Since our start, we’ve planted over 500,000 trees worldwide. By joining our campaign, you
+                help restore forests, create habitats for wildlife, and combat global warming.
+            </p>
+
+            <ul class="list-disc pl-5 space-y-2 text-gray-800">
+                <li>Restoration of natural habitats</li>
+                <li>Improvement of air quality</li>
+                <li>Support for local communities</li>
+            </ul>
+        </div>
+
     </div>
-  </dialog>
+
+    <!-- Our Impact section -->
+    <section class="bg-green-100 px-6 py-12">
+
+        <div class="pb-8">
+            <h2 class="text-3xl font-semibold text-center">
+                Our Impact
+            </h2>
+        </div>
+
+        <!-- three vox main div -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-6xl mx-auto">
+
+            <div class="flex flex-col justify-center items-center w-full h-32 bg-white space-y-2 rounded-2xl shadow">
+                <h1 class="font-semibold text-4xl text-green-700">500k+</h1>
+                <p>Trees Planted</p>
+            </div>
+
+            <div class="flex flex-col justify-center items-center w-full h-32 bg-white space-y-2 rounded-2xl shadow">
+                <h1 class="font-semibold text-4xl text-green-700">120+</h1>
+                <p>Communities Involved</p>
+            </div>
+
+            <div class="flex flex-col justify-center items-center w-full h-32 bg-white space-y-2 rounded-2xl shadow">
+                <h1 class="font-semibold text-4xl text-green-700">30+</h1>
+                <p>Countries Reached</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+
 
     <!-- Script -->
     <script src="./script.js"></script>
