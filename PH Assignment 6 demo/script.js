@@ -83,7 +83,9 @@ const displayTree = (plants) => {
 
                    <div onclick='addToCart(${JSON.stringify(plant)})' 
                 class="cursor-pointer flex justify-center items-center bg-green-600 text-white rounded-2xl mx-4 p-2">
+                <button>
                 Add To Cart
+                </button>
             </div>
                 </div>
 
@@ -141,7 +143,9 @@ displayAllPlant = (plants) => {
 
                     <div onclick='addToCart(${JSON.stringify(plant)})' 
                 class="cursor-pointer flex justify-center items-center bg-green-600 text-white rounded-2xl mx-4 p-2">
+                <button>
                 Add To Cart
+                </button>
             </div>
                 </div>
 
