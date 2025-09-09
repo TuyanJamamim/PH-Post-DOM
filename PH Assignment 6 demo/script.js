@@ -1,8 +1,14 @@
 const categoryLoad = () => {
+    
     const url = "https://openapi.programming-hero.com/api/categories";
+    
     fetch(url).then((res) => res.json()).then((data) => {
-        // console.log(data.categories);
+       
+      
+         
         displayCategories(data.categories)
+    
+       
     })
 }
 
@@ -50,6 +56,7 @@ const loadTree = (num) => {
     fetch(url).then((res) => res.json()).then((data) => {
         // console.log(data.categories);
         // displayCategories(data.plants)
+         removeAllTreeACtive()
         removeActive()
         const clickBtn = document.getElementById(`cata-vutton-${num}`)
         clickBtn.classList.add("active")
@@ -104,18 +111,29 @@ const removeActive = () => {
     cataVuttons.forEach((vtn) => vtn.classList.remove('active'));
 }
 
-
+const removeAllTreeACtive = () => {
+    const cataVuttons = document.querySelectorAll(".tree-vtn")
+    cataVuttons.forEach((vtn) => vtn.classList.remove('active'));
+}
 
 
 
 
 const allPlantLoad = () => {
+
+    manageSpinner(true);
     const url = "https://openapi.programming-hero.com/api/plants"
     fetch(url).then((res) => res.json()).then((data) => {
+
+        removeActive()
+        const clickBtn = document.getElementById("all-tree")
+        clickBtn.classList.add("active")
         // console.log(data.plants)
         // console.log(data.categories);
         // displayCategories(data.categories)
-        displayAllPlant(data.plants)
+        
+        displayAllPlant(data.plants);
+        manageSpinner(false);
     })
 }
 
@@ -212,7 +230,6 @@ const loadTreeDetail = async (id) => {
     const response = await fetch(url);
     const details = await response.json();
 
-    //   displayWordDetails(details.data)
     displayTreeDetail(details.plants);
 }
 
