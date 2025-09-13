@@ -1,0 +1,1 @@
+****ChatGpt prompt: explain local storage in JS***

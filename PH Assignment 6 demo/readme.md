@@ -27,5 +27,19 @@ console.log(z)=12
 
 5) Explain template literals in ES6. How are they different from string concatenation?
 
-Answer: 
- 
+Answer: Template literals are one of the most useful ES6 features for working with strings.Template literals are strings that allow insert variables or expressions directly.
+
+Template literals are written with backticks(`) instead of (' or ")
+String concatenation uses + like this:
+const name = "Tuan";
+const age = 22;
+const message = "Hello, my name is " + name + " and I am " + age + " years old.";
+console.log(message);
+On the other hand,template literals uses ${} like this:
+const name = "Tuan";
+const age = 22;
+const message = `Hello, my name is ${name} and I am ${age} years old.`;
+console.log(message);
+So,template literals are easier,cleaner than string concatenation and it supports multiline strings.
+
+
