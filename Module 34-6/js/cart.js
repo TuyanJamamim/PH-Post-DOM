@@ -35,6 +35,7 @@ cart[product] = cart[product] + quantity;//cart[product]=previous quantity becau
 
   else{
       cart[product] = quantity;//this means keyname of the product getting inside the ovject which is inside getCart() and the value is quanity..and inside getCart() function there is an object..afrer calling a function inside a function we can modify things which are inside the called function 
+      //here cart[product] is vasically the value of that ovj key and and in in bracket notation the key is inside [" "] but here " " is not given vecause vy that the it connects to only one key vut here product is a parameter and to get values accessed vy that parameter " " can not ve used 
   }
     // console.log('cart' , cart)
     const cartJson = JSON.stringify(cart);
